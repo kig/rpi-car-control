@@ -1,0 +1,51 @@
+html, body {
+    background-color: #111;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#localVideo {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 160px;
+    height: 120px;
+    z-index: 1;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.5);
+}
+
+#remoteVideo, #video-canvas, #control-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#fullscreen {
+    position: absolute;
+    z-index: 4;
+    right: 43px;
+    bottom: 21px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    background: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="white"><path d="M73.143,329.143H0V512h182.857v-73.143H73.143V329.143z M0,182.857h73.143V73.143h109.715V0H0V182.857z M438.857,438.857H329.143V512H512V329.143h-73.143V438.857z M329.143,0v73.143h109.715v109.715H512V0H329.143z"/></svg>') 0 0 / 100% no-repeat;
+    transition: 0.5s;
+    opacity: 0.5;
+}
+
+#fullscreen:hover {
+    opacity: 1 !important;
+}
+
+.car-mic {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 10;
+}
+

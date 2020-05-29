@@ -1,0 +1,11 @@
+Match User car
+   ClientAliveInterval 1
+   ClientAliveCountMax 1
+   AllowTcpForwarding yes
+   X11Forwarding no
+   PermitTunnel no
+   GatewayPorts yes
+   AllowAgentForwarding no
+   PermitOpen localhost:9999
+   ForceCommand echo 'This account can only be used for car rproxy'
+

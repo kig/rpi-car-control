@@ -1,0 +1,13 @@
+[Unit]
+Description=Car Service
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/home/pi/code/car/run.sh
+User=pi
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

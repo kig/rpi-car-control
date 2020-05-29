@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Car Control</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div>
+      <img id="video-canvas" src="cam/video.mjpg" />
+      <!--
+      <canvas id="video-canvas"></canvas>
+
+      <video id="remoteVideo" autoplay playsinline></video>
+      <video id="localVideo" autoplay playsinline muted></video>
+      -->
+    </div>
+    <div id="fullscreen"></div>
+    <script type="text/javascript" src="fullscreen.js"></script>
+
+    <!-- Stream browser microphone to car via Web Audio API -->
+    <!--
+    <script src="talkToCar.js"></script>
+    -->
+
+    <!-- WebRTC call with RWS -->
+    <!--
+    <script src="js/common.js"></script>
+    <script src="js/sdputils.js"></script>
+    <script src="js/peerconnection_client.js"></script>
+    <script src="js/websocket_signaling.js"></script>
+    <script src="js/main_rws.js"></script>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    -->
+
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+</html>
