@@ -25,6 +25,10 @@ sh install.sh
 
 The install script installs the car service and its dependencies. This is best done on a fresh install of Raspbian. The install script overwrites NGINX's default site configuration.
 
+The car control app is installed in `/opt/rpi-car-control`.
+
+To use a SSH tunnel server, edit `/opt/rpi-car-control/run.sh` and change the line `RPROXY_SERVER=` to `RPROXY_SERVER=my.server.address`.
+
 ## Wiring
 
 See `control/car.py` and `sensors/sensors_websocket.py` for the pin definitions. The VCC and GND connections have been left out. Just remember to use the correct voltage when wiring those.

@@ -4,7 +4,7 @@ Requires=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=/home/pi/code/car/run.sh
+ExecStart=/opt/rpi-car-control/run.sh
 User=pi
 Restart=always
 RestartSec=5

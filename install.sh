@@ -27,6 +27,7 @@ fi
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 
+ssh -o "StrictHostKeyChecking no" localhost echo "Added localhost to .ssh/known_hosts" 2>/dev/null
 ansible-playbook -i localhost, raspbian-python3.6.yml
 
 if [ -f ~/.ssh/authorized_keys.bak ]
@@ -46,15 +47,18 @@ sudo pip3.6 install Adafruit_DHT
 (
   # Install Rust
   curl https://sh.rustup.rs -sSf | sh
-  . ~/cargo/env 
+  . ~/.cargo/env 
 
   # Clone the raspivid_mjpeg_server repo and build and install the server
   git clone https://github.com/kig/raspivid_mjpeg_server
   cd raspivid_mjpeg_server
   echo "Building raspivid_mjpeg_server. This is going to take forever (15 minutes on Raspberry Pi 3B+) so do some pushups in the meanwhile."
   cargo build --release
-  sudo cp target/release/raspivid_mjpeg_server /usr/local/bin
+  cp target/release/raspivid_mjpeg_server ../bin/
 )
+
+sudo mkdir -p /opt/rpi-car-control
+sudo cp -r bin control html sensors video web_server run.sh /opt/rpi-car-control
 
 echo "The car is installed"
 echo
