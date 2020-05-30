@@ -4,10 +4,14 @@ if (window.JSMpeg) {
     var player = new JSMpeg.Player(url, { canvas: canvas });
 } else {
     var img = document.getElementById('video-canvas');
+    img.style.opacity = 'none';
     var src = img.src;
     setInterval(function () {
         if (img.naturalWidth === 0) {
+            img.style.display = 'none';
             img.src = src + '?' + Date.now();
+        } else {
+            img.style.display = 'inline-block';
         }
     }, 1000);
 }
@@ -68,16 +72,6 @@ var lastControlsState = null;
 
 var controlCanvas = document.createElement('canvas');
 controlCanvas.id = 'control-canvas';
-
-function resize() {
-    controlCanvas.width = window.innerWidth;
-    controlCanvas.height = window.innerHeight;
-    drawControlsState(lastControlsState);
-}
-
-window.addEventListener('resize', resize, false);
-
-resize();
 
 var ctx = controlCanvas.getContext('2d');
 
@@ -426,7 +420,7 @@ window.onkeydown = function (event) {
         controlState.rear_lights = controlState.rear_lights ? 0 : 20;
     }
 
-    console.log(event.key)
+    // console.log(event.key)
 
     if (event.key === 'z') {
         controlState.blink = -1;
@@ -463,3 +457,13 @@ window.onkeyup = function (event) {
 
 connect();
 connectSensors();
+
+function resize() {
+    controlCanvas.width = window.innerWidth;
+    controlCanvas.height = window.innerHeight;
+    drawControlsState(lastControlsState);
+}
+
+window.addEventListener('resize', resize, false);
+
+resize();
