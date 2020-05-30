@@ -4,7 +4,7 @@ if (window.JSMpeg) {
     var player = new JSMpeg.Player(url, { canvas: canvas });
 } else {
     var img = document.getElementById('video-canvas');
-    img.style.opacity = 'none';
+    img.style.display = 'none';
     var src = img.src;
     setInterval(function () {
         if (img.naturalWidth === 0) {
