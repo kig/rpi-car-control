@@ -2,7 +2,7 @@
 
 trap "echo Exiting...; pkill -P $$; exit 0" SIGINT SIGTERM SIGHUP
 
-RPROXY_SERVER=
+. /etc/rpi-car-control/env.sh
 
 sudo mkdir -p /var/run/car
 sudo chown pi /var/run/car

@@ -8,6 +8,7 @@ sudo cp /etc/nginx/available-sites/default /etc/nginx/available-sites/default.ba
 sudo cp etc/nginx.conf /etc/nginx/available-sites/default
 
 sudo cp etc/car.service /etc/systemd/system/
+sudo cp -r etc/rpi-car-control /etc/
 
 sudo systemctl enable car.service
 
