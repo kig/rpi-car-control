@@ -23,7 +23,7 @@ then
         trap "echo Exiting Tunnel...; pkill -P $$; exit 0" SIGINT SIGTERM SIGHUP
         while true
         do
-        ssh -o "ConnectTimeout 3" -o "ExitOnForwardFailure yes" -o "ServerAliveInterval 1" -o "ServerAliveCountMax 1" -i /home/pi/.ssh/id_rsa -R 9999:localhost:80 -N car@${RPROXY_SERVER} 2>/dev/null
+        ssh -o "StrictHostKeyChecking no" -o "ConnectTimeout 3" -o "ExitOnForwardFailure yes" -o "ServerAliveInterval 1" -o "ServerAliveCountMax 1" -i /home/pi/.ssh/id_rsa -R 9999:localhost:80 -N car@${RPROXY_SERVER} 2>/dev/null
             sleep 1
         done
     ) &
