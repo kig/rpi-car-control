@@ -27,7 +27,7 @@ The install script installs the car service and its dependencies. This is best d
 
 The car control app is installed in `/opt/rpi-car-control`.
 
-To use a SSH tunnel server, edit `/opt/rpi-car-control/run.sh` and change the line `RPROXY_SERVER=` to `RPROXY_SERVER=my.server.address`.
+To use a SSH tunnel server, edit `/etc/rpi-car-control/env.sh` and change the line `RPROXY_SERVER=` to `RPROXY_SERVER=my.server.address`.
 
 ## Wiring
 
