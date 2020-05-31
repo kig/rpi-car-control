@@ -33,7 +33,7 @@ To use a SSH tunnel server, edit `/etc/rpi-car-control/env.sh` and change the li
 
 ## Controls
 
-![Controls HUD](https://github.com/kig/rpi-car-control/doc/controls.png)
+![Controls HUD](https://github.com/kig/rpi-car-control/raw/master/doc/controls.png)
 
 The circle on the left is the accelerator indicator, and the circle on the right is the steering indicator. The bar in the bottom middle is the reversing distance indicator. The sensor data readout is at top left. The little square at the bottom right toggles the full screen mode.
 
