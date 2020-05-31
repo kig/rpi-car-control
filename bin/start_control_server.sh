@@ -26,11 +26,6 @@ cd control/
   python3.6 car_websockets.py >/dev/null 2>&1 &
 cd ..
 
-echo "Starting sensors server"
-cd sensors/
-  python3.6 sensors_websocket.py >/dev/null 2>&1 &
-cd ..
-
 echo "Servers running"
 
 wait

@@ -39,31 +39,28 @@ def init():
     GPIO.setup(front_lights_right_pin, GPIO.OUT)
     GPIO.setup(rear_lights_pin, GPIO.OUT)
     pwm_front_lights_left = GPIO.PWM(front_lights_left_pin, 1000)
-    pwm_front_lights_left.start(0)
     pwm_front_lights_right = GPIO.PWM(front_lights_right_pin, 1000)
-    pwm_front_lights_right.start(0)
     pwm_rear_lights = GPIO.PWM(rear_lights_pin, 1000)
-    pwm_rear_lights.start(0)
 
     #GPIO.setup(power_pin, GPIO.OUT)
 
     GPIO.setup(left_pin, GPIO.OUT)
     pwm_left = GPIO.PWM(left_pin, 100)
-    pwm_left.start(0)
 
     GPIO.setup(right_pin, GPIO.OUT)
     pwm_right = GPIO.PWM(right_pin, 100)
-    pwm_right.start(0)
 
     GPIO.setup(fwd_pin, GPIO.OUT)
     pwm_fwd = GPIO.PWM(fwd_pin, 100)
-    pwm_fwd.start(0)
 
     GPIO.setup(back_pin, GPIO.OUT)
     pwm_back = GPIO.PWM(back_pin, 100)
-    pwm_back.start(0)
 
-
+def changeDutyCycle(pwm, dc):
+    if dc == 0:
+        pwm.stop()
+    else:
+        pwm.start(dc)
 
 def apply_state(state):
     global pwm_fwd, pwm_back
@@ -75,24 +72,24 @@ def apply_state(state):
 
     if blink == -1:
         pwm_front_lights_left.ChangeFrequency(1)
-        pwm_front_lights_left.ChangeDutyCycle(50)
+        changeDutyCycle(pwm_front_lights_left, 50)
         pwm_front_lights_right.ChangeFrequency(120)
-        pwm_front_lights_right.ChangeDutyCycle(state['front_lights'])
+        changeDutyCycle(pwm_front_lights_right, state['front_lights'])
     elif blink == 1:
         pwm_front_lights_left.ChangeFrequency(120)
-        pwm_front_lights_left.ChangeDutyCycle(state['front_lights'])
+        changeDutyCycle(pwm_front_lights_left, state['front_lights'])
         pwm_front_lights_right.ChangeFrequency(1)
-        pwm_front_lights_right.ChangeDutyCycle(50)
+        changeDutyCycle(pwm_front_lights_right, 50)
     else:
         pwm_front_lights_left.ChangeFrequency(120)
-        pwm_front_lights_left.ChangeDutyCycle(state['front_lights'])
         pwm_front_lights_right.ChangeFrequency(120)
-        pwm_front_lights_right.ChangeDutyCycle(state['front_lights'])
+        changeDutyCycle(pwm_front_lights_left, state['front_lights'])
+        changeDutyCycle(pwm_front_lights_right, state['front_lights'])
 
-    pwm_fwd.ChangeDutyCycle(state['fwd'] * state['pwm_move'])
-    pwm_back.ChangeDutyCycle(state['back'] * state['pwm_move'])
-    pwm_left.ChangeDutyCycle(state['left'] * state['pwm_steer'])
-    pwm_right.ChangeDutyCycle(state['right'] * state['pwm_steer'])
+    changeDutyCycle(pwm_fwd, state['fwd'] * state['pwm_move'])
+    changeDutyCycle(pwm_back, state['back'] * state['pwm_move'])
+    changeDutyCycle(pwm_left, state['left'] * state['pwm_steer'])
+    changeDutyCycle(pwm_right, state['right'] * state['pwm_steer'])
 
 
 def cleanup():

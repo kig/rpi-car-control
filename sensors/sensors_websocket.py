@@ -44,12 +44,12 @@ def pirThread(pir_state):
     gpio.setmode(gpio.BCM)
     gpio.setup(pir_pin, gpio.IN, pull_up_down=gpio.PUD_DOWN)
     while True:
-        gpio.wait_for_edge(pir_pin, gpio.RISING, timeout=500)
+        gpio.wait_for_edge(pir_pin, gpio.RISING, timeout=5000)
         if gpio.input(pir_pin):
             pir_state[0] = 1
             pir_state[1] = time.time()
             while gpio.input(pir_pin):
-                gpio.wait_for_edge(pir_pin, gpio.FALLING, timeout=500)
+                gpio.wait_for_edge(pir_pin, gpio.FALLING, timeout=5000)
                 if not gpio.input(pir_pin):
                     pir_state[0] = 0
                     pir_state[1] = time.time()
@@ -61,7 +61,7 @@ def temperatureThread(temperature_state):
             temperature_state[0] = temperature
             temperature_state[1] = humidity
             temperature_state[2] = time.time()
-        time.sleep(2)
+        time.sleep(5)
 
 def distanceCleanup(signal, frame):
     global tof, tof_power_pin
@@ -82,12 +82,12 @@ def distanceThread(distance_state):
     #status = set_zone(tof._dev, 12, 3, 3, 5)
     tof.start_ranging(3)
     VL53L1X._TOF_LIBRARY.VL53L1_SetXTalkCompensationEnable(tof._dev, 1)
-    VL53L1X._TOF_LIBRARY.VL53L1_SetMeasurementTimingBudgetMicroSeconds(tof._dev, 10000)
-    VL53L1X._TOF_LIBRARY.VL53L1_SetInterMeasurementPeriodMilliSeconds(tof._dev, 14)
+    VL53L1X._TOF_LIBRARY.VL53L1_SetMeasurementTimingBudgetMicroSeconds(tof._dev, 20000)
+    VL53L1X._TOF_LIBRARY.VL53L1_SetInterMeasurementPeriodMilliSeconds(tof._dev, 24)
     while True:
         distance_state[0] = tof.get_distance()
         distance_state[1] = time.time()
-        time.sleep(0.025)
+        time.sleep(0.05)
 
 pir_state = Array('d', [0, time.time()])
 pir_thread = Process(target=pirThread, args=(pir_state,))
