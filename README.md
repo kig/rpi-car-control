@@ -25,11 +25,15 @@ sh install.sh
 
 The install script installs the car service and its dependencies. This is best done on a fresh install of Raspbian. The install script overwrites NGINX's default site configuration.
 
+After starting the car control app with `sudo systemctl start car`, you can connect to `http://raspberrypi/car/` and play with the controls web page.
+
 The car control app is installed in `/opt/rpi-car-control`.
 
 To use a SSH tunnel server, edit `/etc/rpi-car-control/env.sh` and change the line `RPROXY_SERVER=` to `RPROXY_SERVER=my.server.address`.
 
 ## Controls
+
+![Controls HUD](https://github.com/kig/rpi-car-control/doc/controls.png)
 
 The circle on the left is the accelerator indicator, and the circle on the right is the steering indicator. The bar in the bottom middle is the reversing distance indicator. The sensor data readout is at top left. The little square at the bottom right toggles the full screen mode.
 
@@ -116,7 +120,7 @@ See `control/car.py` and `sensors/sensors_websocket.py` for the pin definitions.
 
 ## Customize
 
-Take a look at `run.sh` first. It starts the web server and optionally the reverse proxy tunnel. The web server is in `web/web_server.py` and starts up `bin/start_control_server.sh` and `bin/start_server.sh` when needed. The sensors are controlled by `sensors/sensors_websocket.py`, and the car controls are in `control/car_websockets.py`. For video streaming, have a look at `video/start_stream.sh`.
+Take a look at `run.sh` first. It starts the web server and optionally the reverse proxy tunnel. The web server is in `web/web_server.py` and starts up `bin/start_control_server.sh` and `bin/start_server.sh` when needed. The sensors are controlled by `sensors/sensors_websocket.py`, and the car controls are in `control/car_websockets.py`. For video streaming, have a look at `video/start_stream.sh`. The HUD is in `html/`, see `html/main.js` for the car controls and how the video and sensor data are streamed.
 
 ## License
 
