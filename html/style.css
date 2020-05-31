@@ -25,6 +25,10 @@ html, body {
     object-fit: contain;
 }
 
+#video-canvas {
+    display: none;
+}
+
 #fullscreen {
     position: absolute;
     z-index: 4;
