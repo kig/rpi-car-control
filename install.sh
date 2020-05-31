@@ -10,6 +10,9 @@ sudo cp etc/nginx.conf /etc/nginx/available-sites/default
 sudo cp etc/car.service /etc/systemd/system/
 sudo cp -r etc/rpi-car-control /etc/
 
+sudo systemctl enable nginx.service
+sudo systemctl start nginx.service
+
 sudo systemctl enable car.service
 
 
