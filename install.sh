@@ -2,16 +2,16 @@
 
 sudo apt update
 
-sudo apt install -y nginx sox libsox-fmt-mp3 rws ffmpeg
+sudo apt install -y nginx sox libsox-fmt-mp3 rws ffmpeg gstreamer1.0-plugins-good gstreamer1.0-tools
 
-sudo cp /etc/nginx/available-sites/default /etc/nginx/available-sites/default.bak
-sudo cp etc/nginx.conf /etc/nginx/available-sites/default
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+sudo cp etc/nginx.conf /etc/nginx/sites-available/default
 
 sudo cp etc/car.service /etc/systemd/system/
 sudo cp -r etc/rpi-car-control /etc/
 
 sudo systemctl enable nginx.service
-sudo systemctl start nginx.service
+sudo systemctl restart nginx.service
 
 sudo systemctl enable car.service
 
