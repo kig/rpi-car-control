@@ -29,7 +29,31 @@ After starting the car control app with `sudo systemctl start car`, you can conn
 
 The car control app is installed in `/opt/rpi-car-control`.
 
-To use a SSH tunnel server, edit `/etc/rpi-car-control/env.sh` and change the line `RPROXY_SERVER=` to `RPROXY_SERVER=my.server.address`.
+To use a SSH tunnel server, edit `/etc/rpi-car-control/env.sh` and change the line `RPROXY_SERVER=` to `RPROXY_SERVER=my.server`.
+
+With the SSH tunnel, you can access the car from `http://my.server:9999/car/`. Best to firewall this port and add a HTTPS reverse proxy that points to it. Look at `etc/remote_nginx.conf` for a snippet that sets up an authenticated NGINX reverse proxy on the remote server. (Run `htpasswd -c /etc/nginx/car_htpasswd my_username` to create the password file.)
+
+## Configuration
+
+See `/etc/rpi-car-control/env.sh` for settings.
+
+```bash
+# SSH tunnel reverse proxy
+RPROXY_SERVER=my.server
+
+# One of v4l2-mjpeg, v4l2-raw, raspivid
+VIDEO_MODE=v4l2-raw
+
+# Which camera to use in the v4l2 modes
+V4L2_DEVICE=/dev/video2
+
+# Video settings
+VIDEO_WIDTH=480
+VIDEO_HEIGHT=270
+VIDEO_FPS=60
+
+VIDEO_ROTATION=0
+```
 
 ## Controls
 
@@ -94,6 +118,7 @@ See `control/car.py` and `sensors/sensors_websocket.py` for the pin definitions.
 * Systemd service to start the car control server on boot.
 * SSH tunnel to a remote control server to drive the car from anywhere.
 * Low-power tweaks to increase battery life (disables HDMI, Ethernet and USB.)
+* Use RaspiCam or a V4L2 USB webcam, either with raw video (eats CPU) or camera-supplied MJPEG
 
 ## Disabled
 
@@ -108,7 +133,7 @@ See `control/car.py` and `sensors/sensors_websocket.py` for the pin definitions.
 
 ## Wanted
 
-* Bring back USB camera input (I guess you could do `gst-launch-1.0 v4l2src device=/dev/video0 ! 'image/jpeg,width=640,height=480,framerate=60/1' ! filesink buffer-size=0 location=/dev/stdout` and feed that to the MJPEG streamer)
+* OMX JPEG encoder for raw video cameras
 * SLAM and "click on a map position to drive there"
 * Good small microphone + speaker solution
 * Small display to do two-way video calls
