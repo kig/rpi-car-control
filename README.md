@@ -29,6 +29,32 @@ The car control app is installed in `/opt/rpi-car-control`.
 
 To use a SSH tunnel server, edit `/etc/rpi-car-control/env.sh` and change the line `RPROXY_SERVER=` to `RPROXY_SERVER=my.server.address`.
 
+## Controls
+
+The circle on the left is the accelerator indicator, and the circle on the right is the steering indicator. The bar in the bottom middle is the reversing distance indicator. The sensor data readout is at top left.
+
+The controls are defined near the bottom of `html/main.js`.
+
+### Touch controls
+
+* Use left thumb to accelerate and reverse, right thumb to steer.
+
+### Keyboard controls
+
+* Use arrow keys to drive. 
+* The numbers `1`-`4` control front lights intensity and `0` turns the rear lights on and off. 
+* The `z` key blinks the left front light, the `c` key blinks the right front light and the `x` key turns off the blinkers.
+
+## Requirements
+
+The app is very modular, so you can run the app without an actual car or camera. And just play with a web page with controls that do nothing.
+
+If you wire up the motors, you should be able to drive. If you wire up the lights, they should light up.
+
+Wire up the sensors and you should start seeing sensor data in the HUD.
+
+Add a camera and you'll see a live video stream.
+
 ## Wiring
 
 See `control/car.py` and `sensors/sensors_websocket.py` for the pin definitions. The VCC and GND connections have been left out. Just remember to use the correct voltage when wiring those.
@@ -78,6 +104,7 @@ See `control/car.py` and `sensors/sensors_websocket.py` for the pin definitions.
 
 ## Wanted
 
+* Bring back USB camera input (I guess you could do `gst-launch-1.0 v4l2src device=/dev/video0 ! 'image/jpeg,width=640,height=480,framerate=60/1' ! filesink buffer-size=0 location=/dev/stdout` and feed that to the MJPEG streamer)
 * SLAM and "click on a map position to drive there"
 * Good small microphone + speaker solution
 * Small display to do two-way video calls
