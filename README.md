@@ -28,6 +28,19 @@ There was also a microphone input and playback either through wired speakers or 
 
 Add a USB battery pack to power the Raspberry Pi and you're about done. If you're feeling adventurous, you could use a 5V step-up/step-down regulator to run the Raspberry Pi directly from the car batteries.
 
+Plug in a USB 4G modem and set up the SSH reverse proxy tunnel to access the car from anywhere.
+
+## Features
+
+* FPV stream web page with keyboard & touch controls to drive the car, along with a reversing distance indicator and a thermometer.
+* Low latency video stream for driving (down to 50 ms glass-to-glass when using a 90 Hz camera and a 240 Hz display.)
+* Bunch of websocket servers to send out sensor data and receive car controls.
+* Nginx reverse proxy config to tie all the servers together.
+* Systemd service to start the car control server on boot.
+* SSH tunnel to a remote control server to drive the car from anywhere.
+* Low-power tweaks to increase battery life (disables HDMI, Ethernet and USB.)
+* Use RaspiCam or a V4L2 USB webcam, either with raw video (eats CPU) or camera-supplied MJPEG
+
 ## Install
 
 ```bash
@@ -40,6 +53,10 @@ The install script installs the car service and its dependencies. This is best d
 After starting the car control app with `sudo systemctl start car`, you can connect to `http://raspberrypi/car/` and play with the controls web page.
 
 The car control app is installed in `/opt/rpi-car-control`.
+
+## SSH reverse proxy tunnel
+
+The car service can connect to a remote server over SSH and create a tunnel from the remote server to the car's web server. This allows you to connect to the car through a remote server with a known address and public Internet access. The remote server can then create an authenticated proxy for accessing the car. This way you can have a username and password for the car and access it from anywhere.
 
 To use a SSH tunnel server, edit `/etc/rpi-car-control/env.sh` and change the line `RPROXY_SERVER=` to `RPROXY_SERVER=my.server`.
 
@@ -121,18 +138,11 @@ See `control/car.py` and `sensors/sensors_websocket.py` for the pin definitions.
 <tr><td>VL53L1X SCL</td><td>3</td><td>I2C bus 1</td></tr>
 </table>
 
-## Features
+## Customize
 
-* FPV stream web page with keyboard & touch controls to drive the car, along with a reversing distance indicator and a thermometer.
-* Low latency video stream for driving (down to 50 ms glass-to-glass when using a 90 Hz camera and a 240 Hz display.)
-* Bunch of websocket servers to send out sensor data and receive car controls.
-* Nginx reverse proxy config to tie all the servers together.
-* Systemd service to start the car control server on boot.
-* SSH tunnel to a remote control server to drive the car from anywhere.
-* Low-power tweaks to increase battery life (disables HDMI, Ethernet and USB.)
-* Use RaspiCam or a V4L2 USB webcam, either with raw video (eats CPU) or camera-supplied MJPEG
+Take a look at `run.sh` first. It starts the web server and optionally the reverse proxy tunnel. The web server is in `web/web_server.py` and starts up `bin/start_control_server.sh` and `bin/start_server.sh` when needed. The sensors are controlled by `sensors/sensors_websocket.py`, and the car controls are in `control/car_websockets.py`. For video streaming, have a look at `video/start_stream.sh`. The HUD is in `html/`, see `html/main.js` for the car controls and how the video and sensor data are streamed.
 
-## Disabled
+## Disabled features
 
 * Bluetooth speaker pairing for playing audio.
 * Stream car microphone to the browser.
@@ -145,19 +155,18 @@ See `control/car.py` and `sensors/sensors_websocket.py` for the pin definitions.
 
 ## Wanted
 
-* OMX JPEG encoder for raw video cameras
 * SLAM and "click on a map position to drive there"
 * Good small microphone + speaker solution
 * Small display to do two-way video calls
 * Non-sucky camera mount (duct tape doesn't really work)
 * Power car and computer from one battery
-* Automatic wireless charging when battery is low
 * Shutdown when battery critical
+* Automatic wireless charging when battery is low (inductive or spring-loaded pads)
 * Speech controls
-
-## Customize
-
-Take a look at `run.sh` first. It starts the web server and optionally the reverse proxy tunnel. The web server is in `web/web_server.py` and starts up `bin/start_control_server.sh` and `bin/start_server.sh` when needed. The sensors are controlled by `sensors/sensors_websocket.py`, and the car controls are in `control/car_websockets.py`. For video streaming, have a look at `video/start_stream.sh`. The HUD is in `html/`, see `html/main.js` for the car controls and how the video and sensor data are streamed.
+* Use for PTZ camera or drone
+* Process the video stream in the browser using TensorFlow.js
+* OMX JPEG encoder for raw video cameras
+* Second camera for reversing / stereoscopic view
 
 ## License
 
