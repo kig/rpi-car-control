@@ -5,7 +5,7 @@ Use a Raspberry Pi to drive an RC car from a web page.
 ![Photo of the RC car](https://github.com/kig/rpi-car-control/raw/master/doc/car_top_iso.jpg)
 The car with Raspberry Pi and a camera inside. You can see the white USB power bank under the Raspberry Pi. 
 
-![The rear of the car with the time-of-flight sensor](https://github.com/kig/rpi-car-control/raw/master/doc/car_rear/tof.jpg)
+![The rear of the car with the time-of-flight sensor](https://github.com/kig/rpi-car-control/raw/master/doc/car_rear_tof.jpg)
 The rear of the car with the VL53L1X time-of-flight laser-ranging sensor, used as a reversing radar.
 
 ![Controls HUD](https://github.com/kig/rpi-car-control/raw/master/doc/controls.jpg)
